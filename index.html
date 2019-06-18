@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>Web Speech</title>
+        <link rel="stylesheet" href="WebSpeech.style.css">
+    </head>
+<body>
+        
+        <div class="wrap">
+        <button class="button">start</button>
+        </div>
+
+    <script>
+        'use strict';
+
+        {
+            const btn = document.querySelector('button');
+            const speech = new webkitSpeechRecognition();
+            speech.lang = 'en-US';
+
+            btn.addEventListener('click' , () => {
+                 console.log('button clicked!');
+                btn.disabled = true;
+                speech.start();
+          });
+
+          speech.onresult = (e) => {
+            // console.log(e);
+            speech.stop();
+            if(e.results[0].isFinal){
+            //console.log(e.results[0][0].transcript);
+               document.body.style.background = e.results[0][0].transcript; 
+            }
+          };
+
+          speech.onend = () => {
+            speech.start();
+          };
+
+          speech.onsoundstart = () => {
+              btn.textContent = 'Processing...';
+          };
+
+          speech.onsoundend = () => {
+              btn.textContent = 'Waiting...';
+          };
+        }
+    </script>        
+</body>
+</html>
