@@ -1,3 +1,2 @@
 # shinyahanzawa.github.io
 
-Hello
